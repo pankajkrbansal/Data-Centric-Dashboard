@@ -6,7 +6,8 @@ import numpy as np
 import preprocess
 import plotly.graph_objects as go
 
-app = dash.Dash()
+app = dash.Dash(__name__)
+server = app.server  # This exposes the Flask server for WSGI
 
 #Task 4: Load the dataset
 df = pd.read_csv('playstore-analysis.csv')
@@ -151,4 +152,5 @@ def update_graph(xaxis,yaxis):
     fig.update_xaxes(title=xaxis)
     fig.update_yaxes(title=yaxis)
     return fig
-app.run(debug=True, host='0.0.0.0', port=8501)
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=8501)
